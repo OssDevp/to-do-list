@@ -1,0 +1,23 @@
+{
+  "name": "test_todolist",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Learning about CRUD on NodeJs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "osscode",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.1"
+  }
+}
