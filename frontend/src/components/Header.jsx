@@ -1,5 +1,6 @@
-
+import useAuth from "../hook/useAuth";
 export default function Header() {
+  const { toggleModal } = useAuth();
   return (
     <header
       className="bg-slate-800 p-8">
@@ -15,6 +16,7 @@ export default function Header() {
           <button
             className="text-white py-2 px-4 rounded hover:text-gray-400"
             type="button"
+            onClick={toggleModal}
           >
             Create Task
           </button>

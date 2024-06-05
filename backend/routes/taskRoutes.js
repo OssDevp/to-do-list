@@ -4,8 +4,8 @@ import { getAllTask, getTask, postTask, putTask, deleteTask } from "../controlle
 
 const router = express.Router();
 
-router.post("/", postUser);
-router.get("/", getUser);
+router.post("/user", postUser);
+router.get("/user", getUser);
 
 router.get("/task", getAllTask);
 router.get("/task/:id", getTask);
