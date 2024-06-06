@@ -50,7 +50,7 @@ const putTask = async (req, res) => {
 
   task.name = req.body.name || task.name;
   task.description = req.body.description || task.description;
-  task.status = req.body.status || task.status;
+  task.status = req.body.status !== undefined ? req.body.status : task.status;
   try {
     const savedTask = await task.save();
     res.json(savedTask);

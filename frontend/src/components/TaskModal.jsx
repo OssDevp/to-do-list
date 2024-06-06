@@ -1,21 +1,42 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import useAuth from "../hook/useAuth";
 export default function TaskModal() {
-  const { taskForm, setTaskForm, saveTasks, closeModal } = useAuth();
+  const { saveTasks, closeModal, task } = useAuth();
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState(false);
+  const [id, setId] = useState(null);
+
+  useEffect(() => {
+    if (task.name) {
+      setName(task.name || "");
+      setDescription(task.description || "");
+      setStatus(task.status || false);
+      setId(task._id || null);
+    }
+  }, [task])
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (taskForm.name.trim() === "" || taskForm.description.trim() === "") {
+    if ([name, description].includes("")) {
       alert("All fields are required");
       return;
     }
 
-    saveTasks();
+    saveTasks({
+      name,
+      description,
+      status,
+      id
+    });
     closeModal();
-    setTaskForm({
-      name: "",
-      description: "",
-      status: false
-    })
+
+    setName("");
+    setDescription("");
+    setStatus(false);
+    setId(null);
   }
 
   return (
@@ -38,7 +59,8 @@ export default function TaskModal() {
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter task name"
-              onChange={(e) => setTaskForm({ ...taskForm, name: e.target.value })}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div
@@ -53,7 +75,8 @@ export default function TaskModal() {
               id="description"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter task description"
-              onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
+              value={task.description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -68,7 +91,7 @@ export default function TaskModal() {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Add Task
+              {id ? "Update Task" : "Add Task"}
             </button>
           </div>
         </form>
